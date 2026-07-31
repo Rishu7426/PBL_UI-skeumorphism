@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopSmart - Tactile Skeuomorphic E-Commerce & Admin</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Custom Skeuomorphic Design System */
+    body {
+      background: radial-gradient(circle at top left, #f4f7f6, #e2e8e6);
+      color: #2c3e50;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Skeuomorphic Panel / Card with embossed bevel & deep multi-layered shadows */
+    .skeuo-panel {
+      background: linear-gradient(145deg, #ffffff, #e6eae9);
+      border: 1px solid #d1d9d7;
+      border-radius: 16px;
+      box-shadow: 
+        8px 8px 16px rgba(166, 180, 176, 0.4),
+        -8px -8px 16px rgba(255, 255, 255, 0.9),
+        inset 1px 1px 1px rgba(255, 255, 255, 1);
+    }
+
+    /* Recessed / Inset Skeuomorphic Field (Inputs/Textareas) */
+    .skeuo-input {
+      background: #eef2f1;
+      border: 1px solid #c4cecc;
+      border-radius: 10px;
+      box-shadow: 
+        inset 3px 3px 6px rgba(166, 180, 176, 0.5),
+        inset -3px -3px 6px rgba(255, 255, 255, 0.8),
+        0 1px 0 rgba(255, 255, 255, 0.8);
+      transition: all 0.2s ease;
+    }
+    .skeuo-input:focus {
+      outline: none;
+      background: #ffffff;
+      border-color: #059669;
+      box-shadow: 
+        inset 2px 2px 4px rgba(5, 150, 105, 0.2),
+        0 0 0 3px rgba(5, 150, 105, 0.25);
+    }
+
+    /* Glossy 3D Tactile Buttons */
+    .skeuo-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      border-radius: 10px;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      user-select: none;
+      text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+    }
+    .skeuo-btn::before {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 2px;
+      right: 2px;
+      height: 45%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.05));
+      border-radius: 8px 8px 4px 4px;
+      pointer-events: none;
+    }
+    .skeuo-btn:active {
+      transform: translateY(2px);
+    }
+
+    /* Button Colors */
+    .skeuo-btn-emerald {
+      background: linear-gradient(180deg, #10b981 0%, #047857 100%);
+      border: 1px solid #065f46;
+      color: #ffffff;
+      box-shadow: 
+        0 4px 0 #064e3b,
+        0 6px 10px rgba(4, 120, 87, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    .skeuo-btn-emerald:active {
+      box-shadow: 0 1px 0 #064e3b, 0 2px 4px rgba(4, 120, 87, 0.3);
+    }
+
+    .skeuo-btn-indigo {
+      background: linear-gradient(180deg, #6366f1 0%, #4338ca 100%);
+      border: 1px solid #3730a3;
+      color: #ffffff;
+      box-shadow: 
+        0 4px 0 #312e81,
+        0 6px 10px rgba(67, 56, 202, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    .skeuo-btn-indigo:active {
+      box-shadow: 0 1px 0 #312e81, 0 2px 4px rgba(67, 56, 202, 0.3);
+    }
+
+    .skeuo-btn-amber {
+      background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+      border: 1px solid #b45309;
+      color: #ffffff;
+      box-shadow: 
+        0 4px 0 #78350f,
+        0 6px 10px rgba(217, 119, 6, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    .skeuo-btn-amber:active {
+      box-shadow: 0 1px 0 #78350f, 0 2px 4px rgba(217, 119, 6, 0.3);
+    }
+
+    .skeuo-btn-red {
+      background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+      border: 1px solid #991b1b;
+      color: #ffffff;
+      box-shadow: 
+        0 4px 0 #7f1d1d,
+        0 6px 10px rgba(185, 28, 28, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    .skeuo-btn-red:active {
+      box-shadow: 0 1px 0 #7f1d1d, 0 2px 4px rgba(185, 28, 28, 0.3);
+    }
+
+    .skeuo-btn-slate {
+      background: linear-gradient(180deg, #94a3b8 0%, #475569 100%);
+      border: 1px solid #334155;
+      color: #ffffff;
+      box-shadow: 
+        0 4px 0 #1e293b,
+        0 6px 10px rgba(71, 85, 105, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    .skeuo-btn-slate:active {
+      box-shadow: 0 1px 0 #1e293b, 0 2px 4px rgba(71, 85, 105, 0.3);
+    }
+
+    /* Glossy 3D Pills/Badges */
+    .skeuo-badge {
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
+      border: 1px solid rgba(0,0,0,0.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Header & Navigation Bar */
+    .skeuo-header {
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      border-bottom: 2px solid #020617;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    /* Inset Table Styling */
+    .skeuo-table-wrapper {
+      background: #eef2f1;
+      border: 1px solid #c4cecc;
+      border-radius: 12px;
+      box-shadow: inset 2px 2px 6px rgba(0,0,0,0.15), inset -2px -2px 6px rgba(255,255,255,0.8);
+    }
+
+    .skeuo-th {
+      background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+      color: #f8fafc;
+      text-shadow: 0 -1px 0 #000;
+      border-bottom: 2px solid #0f172a;
+    }
+
+    /* Subtle Glass Reflection Effect */
+    .glass-sheen {
+      position: relative;
+      overflow: hidden;
+    }
+    .glass-sheen::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.08) 50%,
+        rgba(255,255,255,0) 100%
+      );
+      transform: rotate(30deg);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- TOP ROLE SWITCHER / SIMULATION BAR -->
+  <header class="bg-slate-950 text-slate-300 text-xs px-4 py-2 border-b border-slate-800 flex justify-between items-center shadow-inner">
+    <div class="flex items-center space-x-2">
+      <span class="font-bold text-amber-400 tracking-wide uppercase"><i class="fa-solid fa-sliders mr-1"></i> System View:</span>
+      <span id="role-badge" class="skeuo-badge bg-emerald-700 text-white px-2.5 py-0.5 rounded-full font-bold text-[11px]">Customer Mode</span>
+    </div>
+    <div class="flex space-x-2">
+      <button onclick="switchRole('customer')" class="skeuo-btn skeuo-btn-slate text-[11px] px-3 py-1">Customer View</button>
+      <button onclick="switchRole('admin')" class="skeuo-btn skeuo-btn-indigo text-[11px] px-3 py-1">Admin Portal</button>
+    </div>
+  </header>
+
+  <!-- MAIN NAVIGATION BAR -->
+  <nav class="skeuo-header sticky top-0 z-40 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+      
+      <!-- Logo Brand -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage(currentRole === 'admin' ? 'admin-home' : 'customer-home')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-700 border border-emerald-300 shadow-md flex items-center justify-center text-amber-300 text-xl font-black">
+          <i class="fa-solid fa-shop"></i>
+        </div>
+        <div>
+          <span class="text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-100 drop-shadow">SHOPSMART</span>
+          <span class="block text-[10px] text-emerald-400 tracking-widest font-bold uppercase -mt-1">Tactile Storefront</span>
+        </div>
+      </div>
+
+      <!-- Mobile Nav Toggle Button -->
+      <button onclick="toggleMobileNav()" class="md:hidden skeuo-btn skeuo-btn-slate px-3 py-1.5 text-xs">
+        <i class="fa-solid fa-bars mr-1"></i> Menu
+      </button>
+
+      <!-- CUSTOMER MENU (US002, US003, US005) -->
+      <div id="customer-nav" class="hidden md:flex items-center space-x-3 text-sm font-bold">
+        <button onclick="showPage('customer-home')" class="skeuo-btn skeuo-btn-emerald px-4 py-2 text-xs"><i class="fa-solid fa-house mr-1.5"></i> Home</button>
+        <button onclick="showPage('customer-cart')" class="skeuo-btn skeuo-btn-amber px-4 py-2 text-xs flex items-center">
+          <i class="fa-solid fa-cart-shopping mr-1.5"></i> Cart
+          <span id="cart-badge" class="ml-2 bg-slate-900 text-amber-300 text-[11px] font-black px-2 py-0.5 rounded-full border border-amber-400/50 shadow-inner">0</span>
+        </button>
+        <button onclick="showPage('customer-orders')" class="skeuo-btn skeuo-btn-indigo px-4 py-2 text-xs"><i class="fa-solid fa-boxes-packing mr-1.5"></i> My Orders</button>
+      </div>
+
+      <!-- ADMIN MENU (US007, US008, US009, US010, US011) -->
+      <div id="admin-nav" class="hidden md:flex items-center space-x-2 text-sm font-bold">
+        <button onclick="showPage('admin-home')" class="skeuo-btn skeuo-btn-slate px-3 py-2 text-xs"><i class="fa-solid fa-chart-line mr-1"></i> Dashboard</button>
+        <button onclick="showPage('admin-add-product')" class="skeuo-btn skeuo-btn-indigo px-3 py-2 text-xs"><i class="fa-solid fa-square-plus mr-1"></i> Add Product</button>
+        <button onclick="showPage('admin-products')" class="skeuo-btn skeuo-btn-indigo px-3 py-2 text-xs"><i class="fa-solid fa-boxes-stacked mr-1"></i> Inventory</button>
+        <button onclick="showPage('admin-customers')" class="skeuo-btn skeuo-btn-indigo px-3 py-2 text-xs"><i class="fa-solid fa-users mr-1"></i> Customers</button>
+        <button onclick="showPage('admin-orders')" class="skeuo-btn skeuo-btn-indigo px-3 py-2 text-xs"><i class="fa-solid fa-truck-ramp-box mr-1"></i> Orders</button>
+      </div>
+
+      <!-- USER PROFILE & LOGOUT SECTION (US002, US006, US007) -->
+      <div class="flex items-center space-x-3">
+        <div id="user-header-info" class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-xl border border-slate-700 shadow-inner">
+          <span class="text-xs text-slate-300 font-semibold">Welcome, <strong id="header-username" class="text-amber-300 font-bold">Guest</strong></span>
+          <button onclick="showPage('customer-profile')" id="profile-btn" class="w-7 h-7 bg-gradient-to-tr from-emerald-600 to-emerald-400 rounded-lg flex items-center justify-center text-white text-xs border border-emerald-300 shadow hover:opacity-90 transition" title="View Profile">
+            <i class="fa-solid fa-user"></i>
+          </button>
+        </div>
+        <button id="logout-btn" onclick="handleLogout()" class="hidden skeuo-btn skeuo-btn-red text-xs px-3 py-1.5">
+          Logout
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RESPONSIVE MOBILE NAV DROPDOWN -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-t border-slate-800 p-4 space-y-2">
+      <div id="mobile-customer-links" class="flex flex-col space-y-2">
+        <button onclick="showPage('customer-home'); toggleMobileNav()" class="skeuo-btn skeuo-btn-emerald py-2 text-xs w-full"><i class="fa-solid fa-house mr-2"></i> Home</button>
+        <button onclick="showPage('customer-cart'); toggleMobileNav()" class="skeuo-btn skeuo-btn-amber py-2 text-xs w-full"><i class="fa-solid fa-cart-shopping mr-2"></i> My Cart</button>
+        <button onclick="showPage('customer-orders'); toggleMobileNav()" class="skeuo-btn skeuo-btn-indigo py-2 text-xs w-full"><i class="fa-solid fa-boxes-packing mr-2"></i> My Orders</button>
+      </div>
+      <div id="mobile-admin-links" class="hidden flex flex-col space-y-2">
+        <button onclick="showPage('admin-home'); toggleMobileNav()" class="skeuo-btn skeuo-btn-slate py-2 text-xs w-full"><i class="fa-solid fa-chart-line mr-2"></i> Dashboard</button>
+        <button onclick="showPage('admin-add-product'); toggleMobileNav()" class="skeuo-btn skeuo-btn-indigo py-2 text-xs w-full"><i class="fa-solid fa-square-plus mr-2"></i> Add Product</button>
+        <button onclick="showPage('admin-products'); toggleMobileNav()" class="skeuo-btn skeuo-btn-indigo py-2 text-xs w-full"><i class="fa-solid fa-boxes-stacked mr-2"></i> View Inventory</button>
+        <button onclick="showPage('admin-customers'); toggleMobileNav()" class="skeuo-btn skeuo-btn-indigo py-2 text-xs w-full"><i class="fa-solid fa-users mr-2"></i> View Customers</button>
+        <button onclick="showPage('admin-orders'); toggleMobileNav()" class="skeuo-btn skeuo-btn-indigo py-2 text-xs w-full"><i class="fa-solid fa-truck-ramp-box mr-2"></i> View Orders</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN VIEW CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+
+    <!-- US001: REGISTRATION PAGE -->
+    <div id="page-register" class="page-view max-w-lg mx-auto skeuo-panel p-8 glass-sheen">
+      <div class="text-center border-b border-gray-300 pb-4 mb-6">
+        <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-800 text-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg border border-emerald-300 text-2xl">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h2 class="text-2xl font-black text-slate-800 tracking-tight">Customer Registration</h2>
+        <p class="text-xs text-gray-500 mt-1">Create an account to begin shopping</p>
+      </div>
+
+      <form id="registration-form" onsubmit="handleRegistration(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+          <input type="text" id="reg-name" maxlength="50" required placeholder="John Doe" class="skeuo-input w-full px-3 py-2.5 text-sm">
+          <p class="text-[10px] text-gray-400 mt-1 font-semibold">Maximum 50 characters</p>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+          <input type="email" id="reg-email" required placeholder="john@example.com" class="skeuo-input w-full px-3 py-2.5 text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Street / City Address</label>
+          <textarea id="reg-address" maxlength="100" required rows="2" placeholder="123 Main Street, Suite 400" class="skeuo-input w-full px-3 py-2 text-sm"></textarea>
+          <p class="text-[10px] text-gray-400 mt-1 font-semibold">Maximum 100 characters</p>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+          <input type="password" id="reg-password" minlength="10" maxlength="30" required placeholder="••••••••••••" class="skeuo-input w-full px-3 py-2.5 text-sm">
+          <p class="text-[10px] text-gray-400 mt-1 font-semibold">Minimum 10 & maximum 30 characters</p>
+        </div>
+        <button type="submit" class="skeuo-btn skeuo-btn-emerald w-full py-3 text-sm mt-2">
+          <i class="fa-solid fa-check-circle mr-2"></i> Complete Registration
+        </button>
+      </form>
+    </div>
+
+    <!-- US002: CUSTOMER HOME PAGE -->
+    <div id="page-customer-home" class="page-view hidden space-y-6">
+      
+      <!-- Tactile Header Hero Banner -->
+      <div class="skeuo-panel p-6 bg-gradient-to-r from-teal-800 via-emerald-800 to-slate-900 text-white flex flex-col md:flex-row justify-between items-center gap-4 glass-sheen">
+        <div>
+          <h1 class="text-2xl font-black tracking-tight text-emerald-200">Eye-Refreshing Catalog</h1>
+          <p class="text-xs text-emerald-100/80 mt-1">Explore our products or filter by category below.</p>
+        </div>
+        <div class="flex items-center space-x-3 w-full md:w-auto">
+          <label class="text-xs font-bold uppercase tracking-wider text-emerald-300 whitespace-nowrap"><i class="fa-solid fa-filter mr-1"></i> Filter Category:</label>
+          <select id="home-category-filter" onchange="renderCustomerProducts()" class="skeuo-input bg-slate-800 text-white text-xs px-3 py-2 font-bold cursor-pointer">
+            <option value="All">All Categories</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Stationary">Stationary</option>
+            <option value="Home Decor">Home Decor</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="customer-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Products dynamically rendered -->
+      </div>
+    </div>
+
+    <!-- US003: MY CART PAGE -->
+    <div id="page-customer-cart" class="page-view hidden space-y-6">
+      <div class="flex items-center space-x-3 border-b border-gray-300 pb-3">
+        <i class="fa-solid fa-basket-shopping text-2xl text-amber-600"></i>
+        <h2 class="text-2xl font-black text-slate-800">Shopping Cart</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-4">
+          <div id="cart-items-container" class="skeuo-panel p-5 space-y-4">
+            <!-- Cart items dynamically rendered -->
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Editable Shipping Address (US003) -->
+          <div class="skeuo-panel p-5 space-y-3">
+            <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+              <h3 class="font-bold text-slate-800 text-xs uppercase tracking-wider"><i class="fa-solid fa-location-dot text-emerald-600 mr-1.5"></i> Shipping Address</h3>
+              <button onclick="toggleEditAddress()" class="text-xs text-emerald-700 hover:underline font-bold">Edit Address</button>
+            </div>
+            <div id="address-display" class="text-xs text-slate-600 font-medium bg-emerald-50/50 p-3 rounded-xl border border-emerald-200 shadow-inner">
+              123 Customer Residence St, City, Country
+            </div>
+            <div id="address-edit-box" class="hidden space-y-2">
+              <textarea id="address-input" class="skeuo-input w-full text-xs p-2.5" rows="2"></textarea>
+              <button onclick="saveAddress()" class="skeuo-btn skeuo-btn-emerald text-xs px-3 py-1.5 w-full">Save Address</button>
+            </div>
+          </div>
+
+          <!-- Order Summary Card -->
+          <div class="skeuo-panel p-5 space-y-3">
+            <h3 class="font-black text-slate-800 text-xs uppercase tracking-wider border-b border-gray-200 pb-2">Cart Summary</h3>
+            <div class="flex justify-between text-xs text-slate-600 font-semibold">
+              <span>Subtotal</span>
+              <span id="cart-subtotal" class="font-bold text-slate-800">$0.00</span>
+            </div>
+            <div class="flex justify-between text-xs text-slate-600 font-semibold">
+              <span>Shipping Fee</span>
+              <span class="text-emerald-600 font-bold">FREE</span>
+            </div>
+            <hr class="border-gray-300">
+            <div class="flex justify-between text-base font-black text-slate-900">
+              <span>Total Amount</span>
+              <span id="cart-total" class="text-emerald-700">$0.00</span>
+            </div>
+            <button onclick="showPage('customer-pay')" id="proceed-btn" class="skeuo-btn skeuo-btn-emerald w-full py-3 text-xs mt-2">
+              Proceed to Payment <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- US004: PAY BILL PAGE -->
+    <div id="page-customer-pay" class="page-view hidden max-w-2xl mx-auto skeuo-panel p-8 space-y-6">
+      <div class="flex justify-between items-center border-b border-gray-300 pb-4">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-shield-halved text-2xl text-emerald-600"></i>
+          <h2 class="text-xl font-black text-slate-800">Secure Payment Gateway</h2>
+        </div>
+        <button onclick="showPage('customer-cart')" class="skeuo-btn skeuo-btn-slate text-xs px-3 py-1.5">
+          <i class="fa-solid fa-arrow-left mr-1"></i> Back to Cart
+        </button>
+      </div>
+
+      <div class="space-y-5">
+        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Select Mode of Payment</label>
+        <div class="grid grid-cols-2 gap-4">
+          <label class="skeuo-panel p-4 flex items-center space-x-3 cursor-pointer hover:border-emerald-500 transition">
+            <input type="radio" name="payment-mode" value="CreditCard" checked onclick="togglePaymentFields('card')" class="text-emerald-600 focus:ring-emerald-500">
+            <span class="text-xs font-bold text-slate-800"><i class="fa-solid fa-credit-card mr-1.5 text-emerald-600"></i> Credit Card</span>
+          </label>
+          <label class="skeuo-panel p-4 flex items-center space-x-3 cursor-pointer hover:border-emerald-500 transition">
+            <input type="radio" name="payment-mode" value="UPI" onclick="togglePaymentFields('upi')" class="text-emerald-600 focus:ring-emerald-500">
+            <span class="text-xs font-bold text-slate-800"><i class="fa-solid fa-mobile-screen-button mr-1.5 text-indigo-600"></i> UPI Payment</span>
+          </label>
+        </div>
+
+        <!-- Credit Card Fields -->
+        <div id="card-fields" class="skeuo-panel p-5 space-y-3 bg-slate-50/50">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Card Number</label>
+            <input type="text" id="pay-card-no" minlength="16" maxlength="16" placeholder="4532 8901 2345 6789" class="skeuo-input w-full p-2.5 text-xs">
+            <p class="text-[10px] text-gray-400 mt-1 font-semibold">Minimum 16 digits</p>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">Card Holder Name</label>
+            <input type="text" id="pay-card-name" minlength="10" placeholder="Johnathan Doe" class="skeuo-input w-full p-2.5 text-xs">
+            <p class="text-[10px] text-gray-400 mt-1 font-semibold">Minimum 10 characters</p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Expiry Date (MM/YY)</label>
+              <input type="text" id="pay-expiry" placeholder="12/28" class="skeuo-input w-full p-2.5 text-xs">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">CVV</label>
+              <input type="password" id="pay-cvv" maxlength="3" placeholder="892" class="skeuo-input w-full p-2.5 text-xs">
+              <p class="text-[10px] text-gray-400 mt-1 font-semibold">3 digit number</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- UPI Fields -->
+        <div id="upi-fields" class="hidden skeuo-panel p-5 space-y-3 bg-slate-50/50">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 mb-1">UPI ID</label>
+            <input type="text" id="pay-upi-id" placeholder="username@upi" class="skeuo-input w-full p-2.5 text-xs">
+          </div>
+        </div>
+
+        <button onclick="processPayment()" class="skeuo-btn skeuo-btn-emerald w-full py-3.5 text-sm">
+          <i class="fa-solid fa-lock mr-2"></i> Make Payment & Generate Invoice
+        </button>
+      </div>
+    </div>
+
+    <!-- US005: MY ORDERS PAGE -->
+    <div id="page-customer-orders" class="page-view hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-300 pb-4">
+        <div class="flex items-center space-x-3">
+          <i class="fa-solid fa-boxes-packing text-2xl text-indigo-600"></i>
+          <h2 class="text-2xl font-black text-slate-800">My Orders History</h2>
+        </div>
+        <div class="flex items-center space-x-2">
+          <label class="text-xs font-bold text-slate-700 uppercase">Filter Category:</label>
+          <select id="customer-order-filter" onchange="renderCustomerOrders()" class="skeuo-input text-xs px-3 py-1.5 font-bold cursor-pointer">
+            <option value="All">All Categories</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="In transit">In transit</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="customer-orders-list" class="space-y-4">
+        <!-- Customer orders dynamically rendered -->
+      </div>
+    </div>
+
+    <!-- US006: PROFILE PAGE -->
+    <div id="page-customer-profile" class="page-view hidden max-w-md mx-auto skeuo-panel p-8 space-y-6">
+      <div class="text-center border-b border-gray-300 pb-5">
+        <div class="w-24 h-24 bg-gradient-to-tr from-emerald-600 to-teal-400 text-white rounded-full flex items-center justify-center text-4xl mx-auto mb-3 shadow-xl border-4 border-white">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <h2 class="text-2xl font-black text-slate-800" id="prof-display-name">Customer Name</h2>
+        <span class="skeuo-badge bg-emerald-100 text-emerald-800 text-xs font-black px-3 py-1 rounded-full inline-block mt-2" id="prof-display-id">Customer ID: 0000000</span>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div class="skeuo-panel p-3 bg-white/50">
+          <label class="text-[10px] text-gray-500 font-bold uppercase tracking-wider block">Registered Email</label>
+          <p id="prof-display-email" class="font-bold text-slate-800 text-sm mt-0.5">user@example.com</p>
+        </div>
+
+        <div class="skeuo-panel p-4 space-y-3">
+          <h3 class="font-black text-slate-800 uppercase tracking-wider border-b pb-2">Update Account Password</h3>
+          <form onsubmit="handlePasswordUpdate(event)" class="space-y-3">
+            <input type="password" id="prof-new-pass" minlength="10" maxlength="30" required placeholder="New Password (10-30 characters)" class="skeuo-input w-full p-2.5 text-xs">
+            <button type="submit" class="skeuo-btn skeuo-btn-emerald w-full py-2 text-xs">Update Password</button>
+          </form>
+        </div>
+
+        <button onclick="handleLogout()" class="skeuo-btn skeuo-btn-red w-full py-2.5 text-xs">
+          <i class="fa-solid fa-right-from-bracket mr-2"></i> Signout Account
+        </button>
+      </div>
+    </div>
+
+    <!-- US007: ADMIN HOME PAGE -->
+    <div id="page-admin-home" class="page-view hidden space-y-6">
+      <div class="skeuo-panel p-6 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white flex flex-col md:flex-row justify-between items-center gap-4 glass-sheen">
+        <div>
+          <h1 class="text-2xl font-black text-indigo-300">Admin Control Center</h1>
+          <p class="text-xs text-indigo-100/80 mt-1">Manage system operations, add inventory, and update order statuses.</p>
+        </div>
+        <button onclick="handleLogout()" class="skeuo-btn skeuo-btn-red text-xs px-4 py-2">
+          Logout Admin
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div onclick="showPage('admin-products')" class="skeuo-panel p-6 cursor-pointer hover:scale-[1.02] transition flex items-center space-x-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-indigo-800 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg border border-indigo-300">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Total Products</p>
+            <p id="stat-products-count" class="text-2xl font-black text-slate-800">0</p>
+          </div>
+        </div>
+
+        <div onclick="showPage('admin-customers')" class="skeuo-panel p-6 cursor-pointer hover:scale-[1.02] transition flex items-center space-x-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-800 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg border border-emerald-300">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Registered Users</p>
+            <p id="stat-customers-count" class="text-2xl font-black text-slate-800">0</p>
+          </div>
+        </div>
+
+        <div onclick="showPage('admin-orders')" class="skeuo-panel p-6 cursor-pointer hover:scale-[1.02] transition flex items-center space-x-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-amber-500 to-amber-800 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg border border-amber-300">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Total Orders</p>
+            <p id="stat-orders-count" class="text-2xl font-black text-slate-800">0</p>
+          </div>
+        </div>
+
+        <div onclick="showPage('admin-add-product')" class="skeuo-panel p-6 cursor-pointer hover:scale-[1.02] transition flex items-center space-x-4">
+          <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-800 text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg border border-purple-300">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <div>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Quick Task</p>
+            <p class="text-xs font-black text-indigo-700">Add New Item</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- US008: ADMIN ADD PRODUCT PAGE -->
+    <div id="page-admin-add-product" class="page-view hidden max-w-xl mx-auto skeuo-panel p-8 space-y-6">
+      <div class="border-b border-gray-300 pb-4">
+        <h2 class="text-xl font-black text-indigo-950"><i class="fa-solid fa-square-plus text-indigo-600 mr-2"></i>Add Product Details</h2>
+        <p class="text-xs text-gray-500 mt-1">Product ID will be automatically generated (3-digit number)</p>
+      </div>
+
+      <form id="add-product-form" onsubmit="handleAddProduct(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Product Name</label>
+          <input type="text" id="prod-name" maxlength="50" required placeholder="Luxury Quartz Watch" class="skeuo-input w-full p-2.5 text-xs">
+          <p class="text-[10px] text-gray-400 mt-1 font-semibold">Maximum 50 characters</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Product Price ($)</label>
+            <input type="number" step="0.01" id="prod-price" required placeholder="89.99" class="skeuo-input w-full p-2.5 text-xs">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Category</label>
+            <select id="prod-category" required class="skeuo-input w-full p-2.5 text-xs font-bold">
+              <option value="Fashion">Fashion</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Stationary">Stationary</option>
+              <option value="Home Decor">Home Decor</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Description</label>
+          <textarea id="prod-desc" maxlength="200" required rows="3" placeholder="Water resistant stainless steel analog watch..." class="skeuo-input w-full p-2.5 text-xs"></textarea>
+          <p class="text-[10px] text-gray-400 mt-1 font-semibold">Maximum 200 characters</p>
+        </div>
+
+        <div class="flex space-x-3 pt-2">
+          <button type="submit" class="skeuo-btn skeuo-btn-indigo flex-1 py-3 text-xs">Register Product</button>
+          <button type="reset" class="skeuo-btn skeuo-btn-slate px-5 py-3 text-xs">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- US009: ADMIN VIEW ALL PRODUCTS PAGE -->
+    <div id="page-admin-products" class="page-view hidden space-y-6">
+      <div class="flex justify-between items-center border-b border-gray-300 pb-4">
+        <h2 class="text-2xl font-black text-slate-900"><i class="fa-solid fa-boxes-stacked text-indigo-600 mr-2"></i>Products Table</h2>
+        <button onclick="showPage('admin-add-product')" class="skeuo-btn skeuo-btn-indigo text-xs px-4 py-2">
+          <i class="fa-solid fa-plus mr-1"></i> Add Product
+        </button>
+      </div>
+
+      <div class="skeuo-table-wrapper overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="skeuo-th">
+              <th class="p-3">Product ID</th>
+              <th class="p-3">Product Name</th>
+              <th class="p-3">Price</th>
+              <th class="p-3">Category</th>
+              <th class="p-3">Description</th>
+              <th class="p-3 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-products-table">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- US010: ADMIN VIEW ALL CUSTOMERS PAGE -->
+    <div id="page-admin-customers" class="page-view hidden space-y-6">
+      <h2 class="text-2xl font-black text-slate-900 border-b border-gray-300 pb-4"><i class="fa-solid fa-users text-indigo-600 mr-2"></i>Customer Accounts Table</h2>
+
+      <div class="skeuo-table-wrapper overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="skeuo-th">
+              <th class="p-3">Customer ID</th>
+              <th class="p-3">Name</th>
+              <th class="p-3">Email</th>
+              <th class="p-3">Address</th>
+            </tr>
+          </thead>
+          <tbody id="admin-customers-table">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- US011: ADMIN VIEW ALL ORDERS PAGE -->
+    <div id="page-admin-orders" class="page-view hidden space-y-6">
+      <h2 class="text-2xl font-black text-slate-900 border-b border-gray-300 pb-4"><i class="fa-solid fa-truck-ramp-box text-indigo-600 mr-2"></i>Orders Fulfillment Management</h2>
+
+      <!-- 5 Category Filter Tabs -->
+      <div class="flex flex-wrap gap-2 border-b border-gray-300 pb-3">
+        <button onclick="renderAdminOrders('Confirmed')" class="admin-order-tab skeuo-btn skeuo-btn-indigo text-xs px-3 py-1.5">Confirmed</button>
+        <button onclick="renderAdminOrders('In transit')" class="admin-order-tab skeuo-btn skeuo-btn-slate text-xs px-3 py-1.5">In transit</button>
+        <button onclick="renderAdminOrders('Delivered')" class="admin-order-tab skeuo-btn skeuo-btn-slate text-xs px-3 py-1.5">Delivered</button>
+        <button onclick="renderAdminOrders('Cancelled')" class="admin-order-tab skeuo-btn skeuo-btn-slate text-xs px-3 py-1.5">Cancelled</button>
+        <button onclick="renderAdminOrders('Return')" class="admin-order-tab skeuo-btn skeuo-btn-slate text-xs px-3 py-1.5">Return</button>
+      </div>
+
+      <div id="admin-orders-container" class="space-y-4">
+        <!-- Dynamic order list -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ACKNOWLEDGMENT MODAL (US001, US004, US008) -->
+  <div id="modal-ack" class="hidden fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="skeuo-panel max-w-md w-full p-8 space-y-5 text-center bg-white glass-sheen">
+      <div class="w-16 h-16 bg-gradient-to-tr from-emerald-500 to-emerald-700 text-white rounded-full flex items-center justify-center text-3xl mx-auto shadow-xl border-2 border-white">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h3 id="ack-title" class="text-xl font-black text-emerald-700">Success!</h3>
+      <div id="ack-content" class="text-xs text-slate-700 space-y-2 skeuo-panel p-4 text-left bg-emerald-50/50">
+        <!-- Message body dynamically populated -->
+      </div>
+      <button onclick="closeModal('modal-ack')" class="skeuo-btn skeuo-btn-emerald w-full py-2.5 text-xs">
+        Dismiss & Continue
+      </button>
+    </div>
+  </div>
+
+  <!-- EDIT DETAILS MODAL -->
+  <div id="modal-edit" class="hidden fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="skeuo-panel max-w-md w-full p-6 space-y-4 bg-white">
+      <h3 id="edit-modal-title" class="text-base font-black text-slate-900 border-b pb-2">Edit Details</h3>
+      <div id="edit-modal-body" class="space-y-3 text-xs">
+        <!-- Editable inputs dynamically rendered -->
+      </div>
+      <div class="flex space-x-2 pt-2">
+        <button id="edit-modal-save" class="skeuo-btn skeuo-btn-emerald flex-1 py-2 text-xs">Save Changes</button>
+        <button onclick="closeModal('modal-edit')" class="skeuo-btn skeuo-btn-slate px-4 py-2 text-xs">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEEDBACK MODAL (US005) -->
+  <div id="modal-feedback" class="hidden fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="skeuo-panel max-w-md w-full p-6 space-y-4 bg-white">
+      <h3 class="text-base font-black text-slate-900 border-b pb-2">Submit Product Feedback</h3>
+      <textarea id="feedback-text" rows="3" placeholder="Write your experience..." class="skeuo-input w-full p-2.5 text-xs"></textarea>
+      <div class="flex space-x-2">
+        <button onclick="saveFeedback()" class="skeuo-btn skeuo-btn-emerald flex-1 py-2 text-xs">Submit Feedback</button>
+        <button onclick="closeModal('modal-feedback')" class="skeuo-btn skeuo-btn-slate px-4 py-2 text-xs">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // APPLICATION STATE MANAGEMENT
+    let currentRole = 'customer';
+    let currentUser = null;
+
+    let customers = [
+      { id: "1849203", name: "Alice Johnson", email: "alice@example.com", password: "Password123!", address: "742 Evergreen Terrace, Springfield" },
+      { id: "9283741", name: "Bob Smith", email: "bob@example.com", password: "Password123!", address: "10 Downing St, London" }
+    ];
+
+    let products = [
+      { id: "101", name: "Designer Summer Dress", price: 49.99, category: "Fashion", description: "Elegant lightweight summer cotton dress." },
+      { id: "102", name: "Noise Canceling Headphones", price: 129.50, category: "Electronics", description: "Immersive sound with 30-hour battery life." },
+      { id: "103", name: "Executive Leather Journal", price: 18.00, category: "Stationary", description: "Handcrafted leather-bound ruled journal." },
+      { id: "104", name: "Ceramic Ambient Lamp", price: 35.75, category: "Home Decor", description: "Modern minimalist ceramic bedside lamp." }
+    ];
+
+    let cart = [
+      { productId: "101", quantity: 1 },
+      { productId: "103", quantity: 2 }
+    ];
+
+    let orders = [
+      { id: "ORD-9201", customerId: "1849203", items: [{ name: "Designer Summer Dress", qty: 1 }], total: 49.99, status: "Confirmed", date: "2024-05-10", arrivalDate: "2024-05-15", address: "742 Evergreen Terrace, Springfield", feedback: "" },
+      { id: "ORD-9202", customerId: "1849203", items: [{ name: "Noise Canceling Headphones", qty: 1 }], total: 129.50, status: "In transit", date: "2024-05-08", arrivalDate: "2024-05-12", address: "742 Evergreen Terrace, Springfield", feedback: "" },
+      { id: "ORD-9203", customerId: "1849203", items: [{ name: "Ceramic Ambient Lamp", qty: 1 }], total: 35.75, status: "Delivered", date: "2024-04-01", deliveredDate: "2024-04-05", address: "742 Evergreen Terrace, Springfield", feedback: "Beautiful warm lighting!" },
+      { id: "ORD-9204", customerId: "1849203", items: [{ name: "Executive Leather Journal", qty: 1 }], total: 18.00, status: "Cancelled", date: "2024-03-12", cancelledDate: "2024-03-13", address: "742 Evergreen Terrace, Springfield", feedback: "" }
+    ];
+
+    let currentActiveFeedbackOrderId = null;
+
+    // INIT
+    window.onload = function() {
+      currentUser = customers[0];
+      switchRole('customer');
+    };
+
+    function toggleMobileNav() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    // ROLE SWITCHING LOGIC
+    function switchRole(role) {
+      currentRole = role;
+      document.getElementById('role-badge').innerText = role === 'admin' ? 'Admin Portal' : 'Customer Mode';
+      document.getElementById('role-badge').className = role === 'admin' 
+        ? 'skeuo-badge bg-indigo-700 text-white px-2.5 py-0.5 rounded-full font-bold text-[11px]' 
+        : 'skeuo-badge bg-emerald-700 text-white px-2.5 py-0.5 rounded-full font-bold text-[11px]';
+
+      if (role === 'admin') {
+        document.getElementById('customer-nav').classList.add('hidden');
+        document.getElementById('admin-nav').classList.remove('hidden');
+        document.getElementById('mobile-customer-links').classList.add('hidden');
+        document.getElementById('mobile-admin-links').classList.remove('hidden');
+        document.getElementById('header-username').innerText = "AdminUser";
+        document.getElementById('profile-btn').classList.add('hidden');
+        document.getElementById('logout-btn').classList.remove('hidden');
+        showPage('admin-home');
+      } else {
+        document.getElementById('admin-nav').classList.add('hidden');
+        document.getElementById('customer-nav').classList.remove('hidden');
+        document.getElementById('mobile-admin-links').classList.add('hidden');
+        document.getElementById('mobile-customer-links').classList.remove('hidden');
+        document.getElementById('profile-btn').classList.remove('hidden');
+        document.getElementById('logout-btn').classList.add('hidden');
+
+        if (currentUser) {
+          document.getElementById('header-username').innerText = currentUser.name;
+          showPage('customer-home');
+        } else {
+          document.getElementById('header-username').innerText = "Guest";
+          showPage('register');
+        }
+      }
+      updateCartBadge();
+      updateAdminStats();
+    }
+
+    // PAGE ROUTER
+    function showPage(pageId) {
+      document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById(`page-${pageId}`);
+      if (target) target.classList.remove('hidden');
+
+      if (pageId === 'customer-home') renderCustomerProducts();
+      if (pageId === 'customer-cart') renderCart();
+      if (pageId === 'customer-orders') renderCustomerOrders();
+      if (pageId === 'customer-profile') renderProfile();
+      if (pageId === 'admin-home') updateAdminStats();
+      if (pageId === 'admin-products') renderAdminProducts();
+      if (pageId === 'admin-customers') renderAdminCustomers();
+      if (pageId === 'admin-orders') renderAdminOrders('Confirmed');
+    }
+
+    // US001: REGISTRATION LOGIC
+    function handleRegistration(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const address = document.getElementById('reg-address').value.trim();
+      const password = document.getElementById('reg-password').value;
+
+      const customerId = Math.floor(1000000 + Math.random() * 9000000).toString();
+
+      const newUser = { id: customerId, name, email, password, address };
+      customers.push(newUser);
+      currentUser = newUser;
+
+      document.getElementById('header-username').innerText = currentUser.name;
+
+      showAckModal(
+        "Registration Successful.",
+        `<p class="text-emerald-600 font-black text-sm mb-2">Registration successful.</p>
+         <p><strong>Customer ID:</strong> ${customerId}</p>
+         <p><strong>Customer Name:</strong> ${name}</p>
+         <p><strong>Email:</strong> ${email}</p>`
+      );
+
+      document.getElementById('registration-form').reset();
+      showPage('customer-home');
+    }
+
+    // US002: PRODUCTS CATALOG
+    function renderCustomerProducts() {
+      const category = document.getElementById('home-category-filter').value;
+      const grid = document.getElementById('customer-products-grid');
+      grid.innerHTML = '';
+
+      const filtered = category === 'All' ? products : products.filter(p => p.category === category);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8 text-xs font-semibold">No products found in category "${category}".</p>`;
+        return;
+      }
+
+      filtered.forEach(p => {
+        grid.innerHTML += `
+          <div class="skeuo-panel p-5 flex flex-col justify-between hover:scale-[1.01] transition glass-sheen">
+            <div>
+              <span class="skeuo-badge bg-emerald-100 text-emerald-800 text-[10px] font-black px-2.5 py-0.5 rounded-full inline-block uppercase">${p.category}</span>
+              <h3 class="font-black text-slate-800 mt-2 text-sm">${p.name}</h3>
+              <p class="text-xs text-gray-500 mt-1 line-clamp-2">${p.description}</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-200 flex items-center justify-between">
+              <span class="text-base font-black text-emerald-800">$${p.price.toFixed(2)}</span>
+              <button onclick="addToCart('${p.id}')" class="skeuo-btn skeuo-btn-emerald text-xs px-3 py-1.5">
+                <i class="fa-solid fa-cart-plus mr-1"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // US003: CART LOGIC
+    function addToCart(productId) {
+      const existing = cart.find(c => c.productId === productId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ productId, quantity: 1 });
+      }
+      updateCartBadge();
+      alert("Product added to your cart!");
+    }
+
+    function updateCartBadge() {
+      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById('cart-badge').innerText = count;
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items-container');
+      container.innerHTML = '';
+
+      if (cart.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-6 text-xs font-bold">Your cart is currently empty.</p>`;
+        document.getElementById('cart-subtotal').innerText = "$0.00";
+        document.getElementById('cart-total').innerText = "$0.00";
+        document.getElementById('proceed-btn').disabled = true;
+        return;
+      }
+
+      document.getElementById('proceed-btn').disabled = false;
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const product = products.find(p => p.id === item.productId);
+        if (!product) return;
+        const itemTotal = product.price * item.quantity;
+        total += itemTotal;
+
+        container.innerHTML += `
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-200 pb-3 gap-3">
+            <div>
+              <h4 class="font-bold text-slate-800 text-xs">${product.name}</h4>
+              <p class="text-[11px] text-gray-500">$${product.price.toFixed(2)} each</p>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="flex items-center space-x-1">
+                <button onclick="changeCartQty(${index}, -1)" class="skeuo-btn skeuo-btn-slate w-6 h-6 text-xs font-bold">-</button>
+                <span class="px-2 text-xs font-black">${item.quantity}</span>
+                <button onclick="changeCartQty(${index}, 1)" class="skeuo-btn skeuo-btn-slate w-6 h-6 text-xs font-bold">+</button>
+              </div>
+              <span class="text-xs font-black text-slate-900 min-w-[60px] text-right">$${itemTotal.toFixed(2)}</span>
+              <button onclick="removeCartItem(${index})" class="skeuo-btn skeuo-btn-red text-xs px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+      });
+
+      document.getElementById('cart-subtotal').innerText = `$${total.toFixed(2)}`;
+      document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
+
+      if (currentUser) {
+        document.getElementById('address-display').innerText = currentUser.address;
+        document.getElementById('address-input').value = currentUser.address;
+      }
+    }
+
+    function changeCartQty(index, delta) {
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) cart.splice(index, 1);
+      updateCartBadge();
+      renderCart();
+    }
+
+    function removeCartItem(index) {
+      cart.splice(index, 1);
+      updateCartBadge();
+      renderCart();
+    }
+
+    function toggleEditAddress() {
+      document.getElementById('address-edit-box').classList.toggle('hidden');
+    }
+
+    function saveAddress() {
+      const newAddr = document.getElementById('address-input').value.trim();
+      if (newAddr && currentUser) {
+        currentUser.address = newAddr;
+        document.getElementById('address-display').innerText = newAddr;
+        toggleEditAddress();
+      }
+    }
+
+    // US004: PAYMENT & INVOICE
+    function togglePaymentFields(mode) {
+      if (mode === 'card') {
+        document.getElementById('card-fields').classList.remove('hidden');
+        document.getElementById('upi-fields').classList.add('hidden');
+      } else {
+        document.getElementById('card-fields').classList.add('hidden');
+        document.getElementById('upi-fields').classList.remove('hidden');
+      }
+    }
+
+    function processPayment() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      const mode = document.querySelector('input[name="payment-mode"]:checked').value;
+      if (mode === 'CreditCard') {
+        const cardNo = document.getElementById('pay-card-no').value;
+        const name = document.getElementById('pay-card-name').value;
+        const cvv = document.getElementById('pay-cvv').value;
+
+        if (cardNo.length < 16) { alert("Card number must be at least 16 digits!"); return; }
+        if (name.length < 10) { alert("Card Holder Name must be at least 10 characters!"); return; }
+        if (cvv.length !== 3) { alert("CVV must be 3 digits!"); return; }
+      } else {
+        const upi = document.getElementById('pay-upi-id').value;
+        if (!upi) { alert("Please enter a valid UPI ID!"); return; }
+      }
+
+      const uniqueOrderId = "ORD-" + Math.floor(1000 + Math.random() * 9000);
+      const itemsPurchased = cart.map(c => {
+        const prod = products.find(p => p.id === c.productId);
+        return { name: prod ? prod.name : 'Product', qty: c.quantity };
+      });
+      const subtotal = cart.reduce((acc, c) => {
+        const prod = products.find(p => p.id === c.productId);
+        return acc + (prod ? prod.price * c.quantity : 0);
+      }, 0);
+
+      const newOrder = {
+        id: uniqueOrderId,
+        customerId: currentUser ? currentUser.id : "1849203",
+        items: itemsPurchased,
+        total: subtotal,
+        status: "Confirmed",
+        date: new Date().toISOString().split('T')[0],
+        arrivalDate: new Date(Date.now() + 5*86400000).toISOString().split('T')[0],
+        address: currentUser ? currentUser.address : "123 Main St",
+        feedback: ""
+      };
+
+      orders.unshift(newOrder);
+      cart = [];
+      updateCartBadge();
+
+      showAckModal(
+        "Payment Processed Successfully",
+        `<p class="text-emerald-700 font-black mb-2">Order & Invoice Confirmed!</p>
+         <p><strong>Order ID:</strong> ${uniqueOrderId}</p>
+         <p><strong>Items Ordered:</strong> ${itemsPurchased.map(i => `${i.name} (x${i.qty})`).join(', ')}</p>
+         <p><strong>Total Amount Paid:</strong> $${subtotal.toFixed(2)}</p>
+         <p><strong>Estimated Arrival Date:</strong> ${newOrder.arrivalDate}</p>`
+      );
+
+      showPage('customer-orders');
+    }
+
+    // US005: MY ORDERS (CUSTOMER)
+    function renderCustomerOrders() {
+      const filter = document.getElementById('customer-order-filter').value;
+      const container = document.getElementById('customer-orders-list');
+      container.innerHTML = '';
+
+      let userOrders = orders.filter(o => !currentUser || o.customerId === currentUser.id);
+      if (filter !== 'All') {
+        userOrders = userOrders.filter(o => o.status === filter);
+      }
+
+      if (userOrders.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-6 text-xs font-bold">No orders found matching category "${filter}".</p>`;
+        return;
+      }
+
+      userOrders.forEach(o => {
+        let badgeStyle = "bg-blue-100 text-blue-900";
+        if (o.status === 'In transit') badgeStyle = "bg-amber-100 text-amber-900";
+        if (o.status === 'Delivered') badgeStyle = "bg-emerald-100 text-emerald-900";
+        if (o.status === 'Cancelled') badgeStyle = "bg-red-100 text-red-900";
+
+        let actionsHTML = '';
+        if (o.status === 'Confirmed') {
+          actionsHTML = `
+            <button onclick="editCustomerOrder('${o.id}')" class="skeuo-btn skeuo-btn-emerald text-xs px-2.5 py-1">Update</button>
+            <button onclick="deleteCustomerOrder('${o.id}')" class="skeuo-btn skeuo-btn-red text-xs px-2.5 py-1">Delete</button>
+          `;
+        } else if (o.status === 'Delivered') {
+          actionsHTML = `
+            <button onclick="openFeedbackModal('${o.id}')" class="skeuo-btn skeuo-btn-indigo text-xs px-2.5 py-1">Feedback</button>
+            <button onclick="returnOrder('${o.id}')" class="skeuo-btn skeuo-btn-amber text-xs px-2.5 py-1">Return</button>
+          `;
+        }
+
+        container.innerHTML += `
+          <div class="skeuo-panel p-5 space-y-3">
+            <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+              <span class="font-black text-slate-800 text-xs">Order ID: ${o.id}</span>
+              <span class="skeuo-badge text-[10px] font-black px-2.5 py-0.5 rounded-full ${badgeStyle}">${o.status}</span>
+            </div>
+            <div class="text-xs text-slate-700 space-y-1">
+              <p><strong>Ordered Items:</strong> ${o.items.map(i => `${i.name} (x${i.qty})`).join(', ')}</p>
+              <p><strong>Ordered Date:</strong> ${o.date}</p>
+              ${o.arrivalDate ? `<p><strong>Arriving Date:</strong> ${o.arrivalDate}</p>` : ''}
+              ${o.deliveredDate ? `<p><strong>Delivered Date:</strong> ${o.deliveredDate}</p>` : ''}
+              ${o.cancelledDate ? `<p><strong>Cancelled Date:</strong> ${o.cancelledDate}</p>` : ''}
+              <p><strong>Address:</strong> ${o.address}</p>
+              ${o.feedback ? `<p class="text-emerald-700 font-semibold"><strong>Feedback:</strong> ${o.feedback}</p>` : ''}
+            </div>
+            <div class="flex justify-between items-center pt-2 border-t border-gray-200">
+              <span class="font-black text-xs text-slate-900">Total: $${o.total.toFixed(2)}</span>
+              <div class="space-x-1">
+                ${actionsHTML}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function editCustomerOrder(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      document.getElementById('edit-modal-title').innerText = `Update Order Address (${orderId})`;
+      document.getElementById('edit-modal-body').innerHTML = `
+        <div>
+          <label class="block text-xs font-bold mb-1">Delivery Address</label>
+          <textarea id="edit-ord-address" class="skeuo-input w-full p-2.5 text-xs" rows="2">${order.address}</textarea>
+        </div>
+      `;
+      document.getElementById('edit-modal-save').onclick = function() {
+        order.address = document.getElementById('edit-ord-address').value;
+        closeModal('modal-edit');
+        renderCustomerOrders();
+      };
+      document.getElementById('modal-edit').classList.remove('hidden');
+    }
+
+    function deleteCustomerOrder(orderId) {
+      if (confirm("Are you sure you want to delete this order?")) {
+        orders = orders.filter(o => o.id !== orderId);
+        renderCustomerOrders();
+      }
+    }
+
+    function openFeedbackModal(orderId) {
+      currentActiveFeedbackOrderId = orderId;
+      document.getElementById('modal-feedback').classList.remove('hidden');
+    }
+
+    function saveFeedback() {
+      const text = document.getElementById('feedback-text').value;
+      const order = orders.find(o => o.id === currentActiveFeedbackOrderId);
+      if (order) {
+        order.feedback = text;
+      }
+      closeModal('modal-feedback');
+      document.getElementById('feedback-text').value = '';
+      renderCustomerOrders();
+    }
+
+    function returnOrder(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (order) {
+        order.status = "Return";
+        alert("Return request initiated successfully.");
+        renderCustomerOrders();
+      }
+    }
+
+    // US006: PROFILE PAGE
+    function renderProfile() {
+      if (!currentUser) return;
+      document.getElementById('prof-display-name').innerText = currentUser.name;
+      document.getElementById('prof-display-id').innerText = `Customer ID: ${currentUser.id}`;
+      document.getElementById('prof-display-email').innerText = currentUser.email;
+    }
+
+    function handlePasswordUpdate(e) {
+      e.preventDefault();
+      const newPass = document.getElementById('prof-new-pass').value;
+      if (currentUser) {
+        currentUser.password = newPass;
+        alert("Password updated successfully!");
+        document.getElementById('prof-new-pass').value = '';
+      }
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      switchRole('customer');
+    }
+
+    // US007 & DASHBOARD STATS
+    function updateAdminStats() {
+      document.getElementById('stat-products-count').innerText = products.length;
+      document.getElementById('stat-customers-count').innerText = customers.length;
+      document.getElementById('stat-orders-count').innerText = orders.length;
+    }
+
+    // US008: ADD PRODUCT (ADMIN)
+    function handleAddProduct(e) {
+      e.preventDefault();
+      const name = document.getElementById('prod-name').value.trim();
+      const price = parseFloat(document.getElementById('prod-price').value);
+      const category = document.getElementById('prod-category').value;
+      const desc = document.getElementById('prod-desc').value.trim();
+
+      const autoId = Math.floor(100 + Math.random() * 900).toString();
+
+      const newProd = { id: autoId, name, price, category, description: desc };
+      products.push(newProd);
+
+      showAckModal(
+        "Product Added Successfully.",
+        `<p class="text-emerald-700 font-black mb-2">Product Added Successfully.</p>
+         <p><strong>Product ID:</strong> ${autoId}</p>
+         <p><strong>Product Name:</strong> ${name}</p>
+         <p><strong>Product Price:</strong> $${price.toFixed(2)}</p>`
+      );
+
+      document.getElementById('add-product-form').reset();
+      updateAdminStats();
+    }
+
+    // US009: VIEW ALL PRODUCTS (ADMIN)
+    function renderAdminProducts() {
+      const tbody = document.getElementById('admin-products-table');
+      tbody.innerHTML = '';
+
+      products.forEach(p => {
+        tbody.innerHTML += `
+          <tr class="border-b border-gray-300 hover:bg-white/60">
+            <td class="p-3 font-bold">${p.id}</td>
+            <td class="p-3 font-semibold">${p.name}</td>
+            <td class="p-3 font-black text-emerald-800">$${p.price.toFixed(2)}</td>
+            <td class="p-3"><span class="skeuo-badge bg-slate-200 text-slate-800 text-[10px] font-bold px-2 py-0.5 rounded-full">${p.category}</span></td>
+            <td class="p-3 text-[11px] text-gray-600 max-w-xs truncate">${p.description}</td>
+            <td class="p-3 text-center space-x-1">
+              <button onclick="editProduct('${p.id}')" class="skeuo-btn skeuo-btn-indigo text-[10px] px-2 py-1">Update</button>
+              <button onclick="deleteProduct('${p.id}')" class="skeuo-btn skeuo-btn-red text-[10px] px-2 py-1">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function editProduct(productId) {
+      const prod = products.find(p => p.id === productId);
+      if (!prod) return;
+
+      document.getElementById('edit-modal-title').innerText = `Update Product (${productId})`;
+      document.getElementById('edit-modal-body').innerHTML = `
+        <div>
+          <label class="block text-xs font-bold mb-1">Product Name</label>
+          <input type="text" id="edit-p-name" value="${prod.name}" class="skeuo-input w-full p-2 text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold mb-1">Price ($)</label>
+          <input type="number" step="0.01" id="edit-p-price" value="${prod.price}" class="skeuo-input w-full p-2 text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold mb-1">Description</label>
+          <textarea id="edit-p-desc" class="skeuo-input w-full p-2 text-xs" rows="2">${prod.description}</textarea>
+        </div>
+      `;
+      document.getElementById('edit-modal-save').onclick = function() {
+        prod.name = document.getElementById('edit-p-name').value;
+        prod.price = parseFloat(document.getElementById('edit-p-price').value);
+        prod.description = document.getElementById('edit-p-desc').value;
+        closeModal('modal-edit');
+        renderAdminProducts();
+      };
+      document.getElementById('modal-edit').classList.remove('hidden');
+    }
+
+    function deleteProduct(productId) {
+      if (confirm("Delete this product from inventory?")) {
+        products = products.filter(p => p.id !== productId);
+        renderAdminProducts();
+        updateAdminStats();
+      }
+    }
+
+    // US010: VIEW ALL CUSTOMERS (ADMIN)
+    function renderAdminCustomers() {
+      const tbody = document.getElementById('admin-customers-table');
+      tbody.innerHTML = '';
+
+      customers.forEach(c => {
+        tbody.innerHTML += `
+          <tr class="border-b border-gray-300 hover:bg-white/60">
+            <td class="p-3 font-bold text-slate-900">${c.id}</td>
+            <td class="p-3 font-semibold">${c.name}</td>
+            <td class="p-3 text-gray-700">${c.email}</td>
+            <td class="p-3 text-[11px] text-gray-600">${c.address}</td>
+          </tr>
+        `;
+      });
+    }
+
+    // US011: VIEW ALL ORDERS (ADMIN)
+    function renderAdminOrders(statusCategory) {
+      document.querySelectorAll('.admin-order-tab').forEach(btn => {
+        if (btn.innerText.trim() === statusCategory) {
+          btn.className = "admin-order-tab skeuo-btn skeuo-btn-indigo text-xs px-3 py-1.5";
+        } else {
+          btn.className = "admin-order-tab skeuo-btn skeuo-btn-slate text-xs px-3 py-1.5";
+        }
+      });
+
+      const container = document.getElementById('admin-orders-container');
+      container.innerHTML = '';
+
+      const filteredOrders = orders.filter(o => o.status === statusCategory);
+
+      if (filteredOrders.length === 0) {
+        container.innerHTML = `<p class="text-center text-gray-500 py-6 text-xs font-bold">No ${statusCategory} orders present.</p>`;
+        return;
+      }
+
+      filteredOrders.forEach(o => {
+        let updateBtnHTML = '';
+        if (o.status === 'Confirmed') {
+          updateBtnHTML = `<button onclick="updateOrderStatusAdmin('${o.id}', 'In transit')" class="skeuo-btn skeuo-btn-indigo text-xs px-3 py-1">Update Status to 'In Transit'</button>`;
+        }
+
+        container.innerHTML += `
+          <div class="skeuo-panel p-4 space-y-2">
+            <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+              <span class="font-black text-xs text-indigo-950">Order ID: ${o.id}</span>
+              <span class="skeuo-badge bg-indigo-100 text-indigo-900 text-[10px] font-black px-2.5 py-0.5 rounded-full">${o.status}</span>
+            </div>
+            <div class="text-xs text-slate-700 space-y-1">
+              <p><strong>Customer ID:</strong> ${o.customerId}</p>
+              <p><strong>Ordered Items:</strong> ${o.items.map(i => `${i.name} (x${i.qty})`).join(', ')}</p>
+              <p><strong>Ordered Date:</strong> ${o.date}</p>
+              ${o.arrivalDate ? `<p><strong>Arriving Date:</strong> ${o.arrivalDate}</p>` : ''}
+              ${o.deliveredDate ? `<p><strong>Delivered Date:</strong> ${o.deliveredDate}</p>` : ''}
+              ${o.cancelledDate ? `<p><strong>Cancelled Date:</strong> ${o.cancelledDate}</p>` : ''}
+              <p><strong>Address:</strong> ${o.address}</p>
+            </div>
+            ${updateBtnHTML ? `<div class="pt-2 border-t border-gray-200 text-right">${updateBtnHTML}</div>` : ''}
+          </div>
+        `;
+      });
+    }
+
+    function updateOrderStatusAdmin(orderId, newStatus) {
+      const order = orders.find(o => o.id === orderId);
+      if (order) {
+        order.status = newStatus;
+        renderAdminOrders(newStatus);
+      }
+    }
+
+    // UTILITIES
+    function showAckModal(title, content) {
+      document.getElementById('ack-title').innerText = title;
+      document.getElementById('ack-content').innerHTML = content;
+      document.getElementById('modal-ack').classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
